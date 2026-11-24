@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
--- By mint-hub-hash
--- By mint-hub-hash
--- By mint-hub-hash
--- By mint-hub-hash
--- By mint-hub-hash
--- By mint-hub-hash
--- By mint-hub-hash
--- By mint-hub-hash
+# By mint-hub-hash
+# By mint-hub-hash
+# By mint-hub-hash
+# By mint-hub-hash
+# By mint-hub-hash
+# By mint-hub-hash
+# By mint-hub-hash
 import argparse, importlib, os, subprocess, sys, tempfile, threading, webbrowser, json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -19,8 +18,8 @@ VERSION = "v4-av-shim"
 -- By mint-hub-hash
 def pip_install(*pkgs):
     subprocess.check_call([sys.executable, "-m", "pip", "install", "-U", *pkgs])
--- By mint-hub-hash
--- By mint-hub-hash
+# By mint-hub-hash
+# By mint-hub-hash
 def ensure(pkg, mod):
     try:
         importlib.import_module(mod)
@@ -37,7 +36,7 @@ def check_av():
     except Exception:
         return
     orig = av.open
--- By mint-hub-hash
+# By mint-hub-hash
     def _open(*args, **kw):
         try:
             return orig(*args, **kw)
@@ -88,7 +87,7 @@ class Engine:
         except ImportError:
             pass
         return m
--- By mint-hub-hash
+# By mint-hub-hash
     def ask_gpu_libs(self):
         if self.a.device == "auto" and not self.a.yes:
             if input("GPU 不可用，要安装加速库 nvidia-cublas-cu12 / nvidia-cudnn-cu12（约 1GB）吗？[y/N] ").strip().lower() != "y":
@@ -100,7 +99,7 @@ class Engine:
         except Exception as e:
             print("[GPU] 安装失败：", e)
             return False
--- By mint-hub-hash
+# By mint-hub-hash
     def load(self):
         ensure("faster-whisper", "faster_whisper")
         check_av()
@@ -117,7 +116,7 @@ class Engine:
                     break
             print("[GPU] 改用 CPU")
         self.model, self.device = self._make("cpu"), "cpu"
--- By mint-hub-hash
+# By mint-hub-hash
     def segments(self, path, lang):
         a = self.a
         prompt = a.prompt or ("以下是歌曲的繁體中文歌詞。" if a.trad and (lang or "zh").startswith("zh") else None)
