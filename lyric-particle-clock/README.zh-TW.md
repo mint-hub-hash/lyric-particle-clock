@@ -2,7 +2,7 @@
 
 **全螢幕、會隨音樂跳動的粒子時鐘，並且在你自己的電腦上自動辨識、同步顯示歌詞。** 當螢幕保護程式很酷。
 
-[English](README.md) · [線上展示](https://mint-hub-hash.github.io/lyric-particle-clock/) · MIT 授權
+[English](README.md) ·  · MIT 授權
 
 !\[demo](docs/demo.gif)
 
