@@ -1,2 +1,0 @@
-faster-whisper>=1.0
-opencc-python-reimplemented  # optional: --trad (Simplified -> Traditional)
