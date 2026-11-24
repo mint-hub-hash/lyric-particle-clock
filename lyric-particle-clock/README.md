@@ -2,7 +2,7 @@
 
 **A full-screen, audio-reactive particle clock for your desktop — with lyrics that sync to the song, detected automatically on your own machine.**
 
-[繁體中文](README.zh-TW.md) · [Live demo](https://mint-hub-hash.github.io/lyric-particle-clock/) · MIT license
+[繁體中文](README.zh-TW.md) ·  · MIT license
 
 !\[demo](docs/demo.gif)
 
