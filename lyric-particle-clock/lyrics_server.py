@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-lyrics_server.py — 用本机轻量模型（faster-whisper）自动识别歌词，并连同「音乐粒子时钟」网页一起启动。
-
-用法（把本文件和 index.html 放在同一个文件夹）：
-    python lyrics_server.py                      # 默认 small 模型，自动选 GPU/CPU
-    python lyrics_server.py --model medium       # 中文歌建议用 medium（6GB 显存可跑）
-    python lyrics_server.py --lang zh --trad     # 指定中文并输出繁体
-    python lyrics_server.py --lrc 歌曲.mp3        # 不开网页，只把歌曲识别成同名 .lrc
-
-启动后浏览器会打开 http://127.0.0.1:8765/ ，在页面里选歌曲，歌词会一边识别一边同步显示。
-首次运行会自动 pip 安装 faster-whisper，并下载模型到本文件夹的 models/ 里。
-"""
+-- By mint-hub-hash
+-- By mint-hub-hash
+-- By mint-hub-hash
+-- By mint-hub-hash
+-- By mint-hub-hash
+-- By mint-hub-hash
+-- By mint-hub-hash
+-- By mint-hub-hash
 import argparse, importlib, os, subprocess, sys, tempfile, threading, webbrowser, json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -21,11 +16,11 @@ HERE = Path(__file__).resolve().parent
 PAGE = HERE / "index.html"
 VERSION = "v4-av-shim"
 
-
+-- By mint-hub-hash
 def pip_install(*pkgs):
     subprocess.check_call([sys.executable, "-m", "pip", "install", "-U", *pkgs])
-
-
+-- By mint-hub-hash
+-- By mint-hub-hash
 def ensure(pkg, mod):
     try:
         importlib.import_module(mod)
@@ -33,8 +28,8 @@ def ensure(pkg, mod):
         print(f"[安装] {pkg} …")
         pip_install(pkg)
         importlib.invalidate_caches()
-
-
+-- By mint-hub-hash
+-- By mint-hub-hash
 def check_av():
     """兼容层：PyAV 不认识 metadata_errors 参数时，自动忽略该参数，faster-whisper 照常解码。"""
     try:
@@ -42,7 +37,7 @@ def check_av():
     except Exception:
         return
     orig = av.open
-
+-- By mint-hub-hash
     def _open(*args, **kw):
         try:
             return orig(*args, **kw)
@@ -55,7 +50,7 @@ def check_av():
 
     av.open = _open
     print(f"[PyAV] {getattr(av, '__version__', '?')}  {Path(av.__file__).parent}")
-
+-- By mint-hub-hash
 
 def add_nvidia_dlls():
     """把 pip 安装的 cuBLAS / cuDNN 目录加入 DLL 搜索路径（Windows）。"""
@@ -93,7 +88,7 @@ class Engine:
         except ImportError:
             pass
         return m
-
+-- By mint-hub-hash
     def ask_gpu_libs(self):
         if self.a.device == "auto" and not self.a.yes:
             if input("GPU 不可用，要安装加速库 nvidia-cublas-cu12 / nvidia-cudnn-cu12（约 1GB）吗？[y/N] ").strip().lower() != "y":
@@ -105,7 +100,7 @@ class Engine:
         except Exception as e:
             print("[GPU] 安装失败：", e)
             return False
-
+-- By mint-hub-hash
     def load(self):
         ensure("faster-whisper", "faster_whisper")
         check_av()
@@ -122,7 +117,7 @@ class Engine:
                     break
             print("[GPU] 改用 CPU")
         self.model, self.device = self._make("cpu"), "cpu"
-
+-- By mint-hub-hash
     def segments(self, path, lang):
         a = self.a
         prompt = a.prompt or ("以下是歌曲的繁體中文歌詞。" if a.trad and (lang or "zh").startswith("zh") else None)
@@ -145,7 +140,7 @@ class Engine:
                 t = self.conv(t)
             yield {"start": round(s.start, 2), "end": round(s.end, 2), "text": t}
 
-
+-- By mint-hub-hash
 def make_handler(engine, a):
     class H(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.0"
@@ -172,7 +167,7 @@ def make_handler(engine, a):
             self.send_response(204)
             self._cors()
             self.end_headers()
-
+-- By mint-hub-hash
         def do_GET(self):
             p = urlparse(self.path).path
             if p == "/api/ping":
@@ -188,7 +183,7 @@ def make_handler(engine, a):
                 self.wfile.write(data)
                 return
             self.send_error(404)
-
+-- By mint-hub-hash
         def do_POST(self):
             u = urlparse(self.path)
             if u.path != "/api/transcribe":
@@ -243,7 +238,7 @@ def make_handler(engine, a):
                     os.remove(tmp)
                 except OSError:
                     pass
-
+-- By mint-hub-hash
     return H
 
 
